@@ -10,19 +10,33 @@ MAINTAINER Douglas McCloskey <dmccloskey87@gmail.com>
 # switch to root for install
 USER root
 
+# Install python2.7 packages
+RUN apt-get update && apt-get upgrade -y \
+  apt-get install -y python \
+  python-scipy \
+  python-numpy
+
 # Install optGpSampler from http
 # instructions and documentation for python installation: http://cs.ru.nl/~wmegchel/optGpSampler/#install-python.xhtml
 WORKDIR /usr/local/
 RUN wget http://cs.ru.nl/~wmegchel/optGpSampler/downloads/optGpSampler_1.1_Python_Linux64.tar.gz
 RUN tar -zxvf optGpSampler_1.1_Python_Linux64.tar.gz
 
-# Convert python 2 to 3:
-WORKDIR /usr/local/optGpSampler_1.1
-RUN 2to3-3.4 -w setup.py
-RUN 2to3-3.4 -w optGpSampler/
+# # Convert python 2 to 3:
+# WORKDIR /usr/local/optGpSampler-1.1
+# RUN 2to3-3.4 -w setup.py
+# RUN 2to3-3.4 -w optGpSampler/
+#cbModel.py, line 65: changed tab to spaces in indentation
+#test.py, line 35: changed tab tos paces in indentation
+
+# # Run setup.py
+# RUN python3 setup.py install
+
+# error when running import optGpSampler using python3: 
+#"ImportError: libpython2.7.so.1.0: cannot open shared object file: No such file or directory"
 
 # Run setup.py
-RUN python3 setup.py install
+RUN python setup.py install
 
 # Install optGpSampler dependencies from http
 WORKDIR /usr/local/
@@ -43,7 +57,7 @@ ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python3.4/dist-packages/optGpSampler/li
 # Cleanup
 WORKDIR /
 RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64.tar.gz
-RUN rm -rf /usr/local/optGpSampler_1.1
+RUN rm -rf /usr/local/optGpSampler-1.1
 RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64_dependencies.tar.gz
 RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64_dependencies
 RUN apt-get clean
