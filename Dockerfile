@@ -26,12 +26,12 @@ RUN tar -zxvf optGpSampler_1.1_Python_Linux64_dependencies.tar.gz
 WORKDIR /usr/local/optGpSampler_1.1_Python_Linux64_dependencies
 
 #Copy the files in libs/lin64 to a directory $LIB_DIR (for example /home/wout/optGpSamplerLibs) on your computer
-RUN mv lib /usr/local/lib/python3.4/site-packages/optGpSampler
-RUN mv models /usr/local/lib/python3.4/site-packages/optGpSampler
+RUN mv lib /usr/local/lib/python3.4/dist-packages/optGpSampler
+RUN mv models /usr/local/lib/python3.4/dist-packages/optGpSampler
 
 # add environment variables for optGpSampler
-ENV LD_LIBRARY_PATH /usr/local/lib/python3.4/site-packages/optGpSampler/lib
-ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python3.4/site-packages/optGpSampler/lib
+ENV LD_LIBRARY_PATH /usr/local/lib/python3.4/dist-packages/optGpSampler/lib
+ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python3.4/dist-packages/optGpSampler/lib
 #RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIB_DIR
 #RUN export OPTGPSAMPLER_LIBS_DIR=$LIB_DIR
 
