@@ -61,6 +61,9 @@ ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python2.7/dist-packages/optGpSampler/li
 #RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIB_DIR
 #RUN export OPTGPSAMPLER_LIBS_DIR=$LIB_DIR
 
+# Add glpk to the LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH
+
 # Cleanup
 WORKDIR /
 RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64.tar.gz
