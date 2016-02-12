@@ -57,7 +57,7 @@ RUN mv models /usr/local/lib/python2.7/dist-packages/optGpSampler
 ENV PYTHONPATH /usr/local/lib/python2.7/dist-packages/optGpSampler/libs:$PYTHONPATH
 ENV LD_LIBRARY_PATH /usr/local/lib/python2.7/dist-packages/optGpSampler/libs:$LD_LIBRARY_PATH
 ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python2.7/dist-packages/optGpSampler/libs
-#RUN export PYTHONPATH=$PYTHONPATH:$LIB_DIR (this tells Python where to find the shared libraries)
+#RUN export PYTHONPATH=$PYTHONPATH:$LIB_DIR
 #RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIB_DIR
 #RUN export OPTGPSAMPLER_LIBS_DIR=$LIB_DIR
 
