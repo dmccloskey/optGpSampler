@@ -18,8 +18,8 @@ RUN tar -zxvf optGpSampler_1.1_Python_Linux64.tar.gz
 
 # Convert python 2 to 3:
 WORKDIR /usr/local/optGpSampler_1.1
-RUN 2to3 -w setup.py
-RUN 2to3 -w optGpSampler/
+RUN 2to3-3.4 -w setup.py
+RUN 2to3-3.4 -w optGpSampler/
 
 # Run setup.py
 RUN python3 setup.py install
