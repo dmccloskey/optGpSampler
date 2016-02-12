@@ -1,5 +1,6 @@
 # Dockerfile to build optGpSampler container images
 # Based on Ubuntu
+# NOTE: only python2.7 supported...
 
 # Set the base image for the solver
 FROM dmccloskey/glpk:latest
@@ -12,7 +13,7 @@ USER root
 
 # Install python2.7 packages
 RUN apt-get update && apt-get upgrade -y \
-  apt-get install -y python \
+  && apt-get install -y python \
   python-scipy \
   python-numpy
 
@@ -21,9 +22,9 @@ RUN apt-get update && apt-get upgrade -y \
 WORKDIR /usr/local/
 RUN wget http://cs.ru.nl/~wmegchel/optGpSampler/downloads/optGpSampler_1.1_Python_Linux64.tar.gz
 RUN tar -zxvf optGpSampler_1.1_Python_Linux64.tar.gz
+WORKDIR /usr/local/optGpSampler-1.1
 
 # # Convert python 2 to 3:
-# WORKDIR /usr/local/optGpSampler-1.1
 # RUN 2to3-3.4 -w setup.py
 # RUN 2to3-3.4 -w optGpSampler/
 #cbModel.py, line 65: changed tab to spaces in indentation
