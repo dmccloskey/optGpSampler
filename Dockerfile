@@ -54,8 +54,10 @@ RUN mv models /usr/local/lib/python2.7/dist-packages/optGpSampler
 # add environment variables for optGpSampler
 # ENV LD_LIBRARY_PATH /usr/local/lib/python3.4/dist-packages/optGpSampler/libs
 # ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python3.4/dist-packages/optGpSampler/libs
-ENV LD_LIBRARY_PATH /usr/local/lib/python2.7/dist-packages/optGpSampler/libs
+ENV PYTHONPATH /usr/local/lib/python2.7/dist-packages/optGpSampler/libs:$PYTHONPATH
+ENV LD_LIBRARY_PATH /usr/local/lib/python2.7/dist-packages/optGpSampler/libs:$LD_LIBRARY_PATH
 ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python2.7/dist-packages/optGpSampler/libs
+#RUN export PYTHONPATH=$PYTHONPATH:$LIB_DIR (this tells Python where to find the shared libraries)
 #RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIB_DIR
 #RUN export OPTGPSAMPLER_LIBS_DIR=$LIB_DIR
 
@@ -73,3 +75,10 @@ USER user
 
 # set the command
 CMD ["python3"]
+
+# Test installation:
+#cd /usr/local/lib/python2.7/dist-packages/optGpSampler
+#bin/bash:python
+#>>> import optGpSampler.test as t; 
+#>>> t.testReduceModel('glpk');
+#>>> t.testSampleModel('glpk');
