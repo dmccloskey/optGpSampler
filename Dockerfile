@@ -40,7 +40,7 @@ WORKDIR /usr/local/optGpSampler-1.1
 #"ImportError: libpython2.7.so.1.0: cannot open shared object file: No such file or directory"
 
 # Run setup.py
-RUN python setup.py install
+RUN python2.7 setup.py install
 
 # Install optGpSampler dependencies from http
 WORKDIR /usr/local/
