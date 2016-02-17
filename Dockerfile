@@ -13,15 +13,18 @@ USER root
 
 # Install python2.7 packages
 RUN apt-get update && apt-get upgrade -y \
-  && apt-get install -y python \
-  python-scipy \
-  python-numpy
+	&& apt-get install -y \
+	python \
+	python-scipy \
+	python-numpy \
+	--no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/*
 
 # Install optGpSampler from http
 # instructions and documentation for python installation: http://cs.ru.nl/~wmegchel/optGpSampler/#install-python.xhtml
 WORKDIR /usr/local/
-RUN wget http://cs.ru.nl/~wmegchel/optGpSampler/downloads/optGpSampler_1.1_Python_Linux64.tar.gz
-RUN tar -zxvf optGpSampler_1.1_Python_Linux64.tar.gz
+RUN wget http://cs.ru.nl/~wmegchel/optGpSampler/downloads/optGpSampler_1.1_Python_Linux64.tar.gz \
+	&& tar -zxvf optGpSampler_1.1_Python_Linux64.tar.gz
 WORKDIR /usr/local/optGpSampler-1.1
 
 # # Convert python 2 to 3:
@@ -41,15 +44,15 @@ RUN python setup.py install
 
 # Install optGpSampler dependencies from http
 WORKDIR /usr/local/
-RUN wget http://cs.ru.nl/~wmegchel/optGpSampler/downloads/optGpSampler_1.1_Python_Linux64_dependencies.tar.gz
-RUN tar -zxvf optGpSampler_1.1_Python_Linux64_dependencies.tar.gz
+RUN wget http://cs.ru.nl/~wmegchel/optGpSampler/downloads/optGpSampler_1.1_Python_Linux64_dependencies.tar.gz \
+  && tar -zxvf optGpSampler_1.1_Python_Linux64_dependencies.tar.gz
 WORKDIR /usr/local/optGpSampler_1.1_Python_Linux64_dependencies
 
 #Copy the files in libs/lin64 to a directory $LIB_DIR (for example /home/wout/optGpSamplerLibs) on your computer
 # RUN mv libs /usr/local/lib/python3.4/dist-packages/optGpSampler
 # RUN mv models /usr/local/lib/python3.4/dist-packages/optGpSampler
-RUN mv libs /usr/local/lib/python2.7/dist-packages/optGpSampler
-RUN mv models /usr/local/lib/python2.7/dist-packages/optGpSampler
+RUN mv libs /usr/local/lib/python2.7/dist-packages/optGpSampler \
+  && mv models /usr/local/lib/python2.7/dist-packages/optGpSampler
 
 # add environment variables for optGpSampler
 # ENV LD_LIBRARY_PATH /usr/local/lib/python3.4/dist-packages/optGpSampler/libs
@@ -63,21 +66,18 @@ ENV OPTGPSAMPLER_LIBS_DIR /usr/local/lib/python2.7/dist-packages/optGpSampler/li
 
 # Add glpk to the LD_LIBRARY_PATH
 ENV LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH
+RUN ldconfig
 
 # Cleanup
 WORKDIR /
-RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64.tar.gz
-RUN rm -rf /usr/local/optGpSampler-1.1
-RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64_dependencies.tar.gz
-RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64_dependencies
-RUN apt-get clean
+RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64.tar.gz \
+	&& rm -rf /usr/local/optGpSampler-1.1 \
+	&& rm -rf /usr/local/optGpSampler_1.1_Python_Linux64_dependencies.tar.gz \
+	&& rm -rf /usr/local/optGpSampler_1.1_Python_Linux64_dependencies
 
 # switch back to user
 WORKDIR $HOME
 USER user
-
-# set the command
-CMD ["python3"]
 
 # Test installation:
 #cd /usr/local/lib/python2.7/dist-packages/optGpSampler
