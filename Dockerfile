@@ -15,8 +15,14 @@ USER root
 RUN apt-get update && apt-get upgrade -y \
 	&& apt-get install -y \
 	python \
+	python-pip \
 	python-scipy \
 	python-numpy \
+	python-pandas \
+	# required for libsbml and recommended for cobrapy
+	python-lxml \
+	build-essential \
+	python-dev \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
