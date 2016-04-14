@@ -83,9 +83,9 @@ RUN rm -rf /usr/local/optGpSampler_1.1_Python_Linux64.tar.gz \
 	
 # install python packages using pip
 #RUN pip install --upgrade pip \
-RUN pip install --no-cache-dir python-libsbml \
-	&& pip install --no-cache-dir cobra \
-	&& pip install --no-cache-dir escher \
+RUN pip install python-libsbml \
+	&& pip install cobra \
+	&& pip install escher \
 	&& pip install --upgrade
 
 # switch back to user
