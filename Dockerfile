@@ -23,6 +23,7 @@ RUN apt-get update && apt-get upgrade -y \
 	python-lxml \
 	build-essential \
 	python-dev \
+	swig \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
